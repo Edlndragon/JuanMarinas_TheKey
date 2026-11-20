@@ -1,5 +1,6 @@
 using UnityEngine;
 
+
 public class Player_Controller : MonoBehaviour
 {
     public float velocity = 7f;
@@ -9,6 +10,8 @@ public class Player_Controller : MonoBehaviour
 
     public float gravity = -9.81f;
     public float verticalSpeed;
+
+    public Game_Manager manager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -42,9 +45,17 @@ public class Player_Controller : MonoBehaviour
         control.Move(direccion * velocity * Time.deltaTime);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    public void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        
+        Debug.Log("Collided with: " + hit.gameObject.name);
+        Collectable_Controller collectable = hit.gameObject.GetComponent<Collectable_Controller>();
+        if (collectable.isCollected == false) 
+        {
+            collectable.isCollected = true;
+            manager.coins++;
+            Debug.Log("Coins:" + manager.coins);
+            Destroy(hit.gameObject);
+        }
     }
 }
 

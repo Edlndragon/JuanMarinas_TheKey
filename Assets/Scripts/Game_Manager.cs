@@ -1,7 +1,10 @@
 using UnityEngine;
 
+
 public class Game_Manager : MonoBehaviour
 {
+    public int coins = 0;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
